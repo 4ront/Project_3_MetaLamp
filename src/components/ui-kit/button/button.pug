@@ -1,0 +1,22 @@
+mixin button(props = {
+  type: 'button',
+  disabled,
+  tagType: '',
+  innerText: '',
+})
+-
+  const buttonTag = tagType === 'a'? 'a' : 'button'
+
+  const attrs = {
+    a: {
+      class: mainClass,
+      type
+    }
+    button: {
+      class: mainClass,
+      type
+    }
+    
+  }
+#{buttonTag}&attributes(attrs[buttonTag]) #{innerText}
+
