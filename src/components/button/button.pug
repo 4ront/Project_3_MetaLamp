@@ -1,0 +1,29 @@
+mixin button(props = {})
+  -
+    const {
+      tagType="button",
+      tagText="XXX",
+      tagName="",
+      tagSize="",
+      tagTextColor="gray",
+      tagVar="",
+      disabled=false,
+    } = props
+
+    const buttonTag = tagName ? 'a' : 'button'
+
+    const mainClass = 'button'
+    const attrs = {
+      a: {
+        class: mainClass,
+        href:''
+      },
+      button: {
+        class: mainClass,
+        type: tagType,
+      }
+    }
+
+  #{buttonTag}&attributes(attrs[buttonTag])
+    span= tagText
+

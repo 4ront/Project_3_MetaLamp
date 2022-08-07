@@ -30,10 +30,11 @@ const entryPoints = PAGES.map((page) => ({
 const entryPointsCorrect = Object.assign({}, ...entryPoints)
 
 module.exports = {
+  mode: "development",
   devServer: {
     static: "./dist",
     port: 4327,
-    open: "/demo.html",
+    open: "/start.html",
     hot: false,
   },
   entry: entryPointsCorrect,
@@ -107,6 +108,20 @@ module.exports = {
         generator: {
           filename: "assets/fonts/[name][ext]",
         },
+      },
+      {
+        test: /\.(s[ac]ss|css)$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: "css-loader",
+            options: { sourceMap: true },
+          },
+          {
+            loader: "sass-loader",
+            options: { sourceMap: true },
+          },
+        ],
       },
     ],
   },
