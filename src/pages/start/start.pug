@@ -1,4 +1,28 @@
 extends ./../../templates/ui-kit__template.pug
 
+block variables
+  - const document_title = "Metalamp Task 2 | Hotel Toxin"
+
+  -
+    const Button = {
+      submit: {
+        type:"button",
+        innerText:"button",
+        link:"",
+        size:"",
+        textColor:"gray",
+        buttonVariation:"",
+        disabled:false,
+      },
+    }
+
+block header
+  header Header block
+
 block content
-  h1 Start page
+  main
+    section Content block
+    +button(Button.submit)
+
+block footer
+  footer Footer block

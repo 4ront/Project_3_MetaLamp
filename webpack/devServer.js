@@ -7,6 +7,6 @@ module.exports = () => {
     },
     port: 4327,
     open: ["/start.html"],
-    hot: true
+    hot: false
   };
 };

@@ -32,12 +32,6 @@ const entryPointsCorrect = Object.assign({}, ...entryPoints);
 module.exports = {
   mode: "development",
   devServer: devServer(),
-  // devServer: {
-  //   static: "./dist",
-  //   port: 4327,
-  //   open: "/start.html",
-  //   hot: false,
-  // },
   entry: entryPointsCorrect,
   output: {
     filename: filename("js"),
