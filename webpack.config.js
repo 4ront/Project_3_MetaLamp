@@ -1,9 +1,9 @@
-const fs = require("fs")
-const path = require("path")
-const webpack = require("webpack")
-const HtmlWebpackPlugin = require("html-webpack-plugin")
-const MiniCssExtractPlugin = require("mini-css-extract-plugin")
-// const devServer = require("./webpack/devServer")
+const fs = require("fs");
+const path = require("path");
+const webpack = require("webpack");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const devServer = require("./webpack/devServer");
 // const styles = require("./webpack/styles")
 // const pug = require("./webpack/pug")
 // const images = require(".webpack/images")
@@ -11,37 +11,38 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 // const javaScript = require("./webpack/javaScript")
 // const sourceMap = require("./webpack/sourceMap")
 
-const PAGES_DIR = path.resolve(__dirname, "src/pages")
+const PAGES_DIR = path.resolve(__dirname, "src/pages");
 const PAGES = fs
   .readdirSync(PAGES_DIR)
-  .map((item) => item.replace(/\.[^/.]+$/, ""))
+  .map((item) => item.replace(/\.[^/.]+$/, ""));
 const PATHS = {
   src: path.join(__dirname, "./src"),
-  dist: path.join(__dirname, "./dist"),
-}
+  dist: path.join(__dirname, "./dist")
+};
 
-const devMode = process.env.NODE_ENV === "development"
-const productionMode = !devMode
+const devMode = process.env.NODE_ENV === "development";
+const productionMode = !devMode;
 const filename = (ext) =>
-  devMode ? `${ext}/[name].${ext}` : `${ext}/[name].[contenthash].${ext}`
+  devMode ? `${ext}/[name].${ext}` : `${ext}/[name].[contenthash].${ext}`;
 const entryPoints = PAGES.map((page) => ({
-  [page]: `${PAGES_DIR}/${page}/index.js`,
-}))
-const entryPointsCorrect = Object.assign({}, ...entryPoints)
+  [page]: `${PAGES_DIR}/${page}/index.js`
+}));
+const entryPointsCorrect = Object.assign({}, ...entryPoints);
 
 module.exports = {
   mode: "development",
-  devServer: {
-    static: "./dist",
-    port: 4327,
-    open: "/start.html",
-    hot: false,
-  },
+  devServer: devServer(),
+  // devServer: {
+  //   static: "./dist",
+  //   port: 4327,
+  //   open: "/start.html",
+  //   hot: false,
+  // },
   entry: entryPointsCorrect,
   output: {
     filename: filename("js"),
     path: PATHS.dist,
-    clean: true,
+    clean: true
   },
   resolve: {
     alias: {
@@ -51,19 +52,19 @@ module.exports = {
       ),
       "@mixins": path.resolve(__dirname, `${PATHS.src}/styles/mixins.scss`),
       src: path.resolve(__dirname, `${PATHS.src}`),
-      components: path.resolve(__dirname, `${PATHS.src}/components`),
-    },
+      components: path.resolve(__dirname, `${PATHS.src}/components`)
+    }
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: filename("css"),
+      filename: filename("css")
     }),
     ...PAGES.map(
       (page) =>
         new HtmlWebpackPlugin({
           filename: `${page}.html`,
           template: `${PAGES_DIR}/${page}/${page}.pug`,
-          chunks: [page],
+          chunks: [page]
         })
     ),
     new webpack.ProvidePlugin({
@@ -71,8 +72,8 @@ module.exports = {
       jQuery: "jquery",
       jquery: "jquery",
       "window.jQuery": "jquery",
-      "window.$": "jquery",
-    }),
+      "window.$": "jquery"
+    })
   ],
   module: {
     rules: [
@@ -80,8 +81,8 @@ module.exports = {
         test: /\.pug$/,
         loader: "pug-loader",
         options: {
-          pretty: devMode,
-        },
+          pretty: devMode
+        }
       },
       {
         test: /\.js$/,
@@ -89,25 +90,25 @@ module.exports = {
         use: {
           loader: "babel-loader",
           options: {
-            presets: ["@babel/preset-env"],
-          },
-        },
+            presets: ["@babel/preset-env"]
+          }
+        }
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
         exclude: [/fonts/],
         type: "asset/resource",
         generator: {
-          filename: "assets/images/[name][ext]",
-        },
+          filename: "assets/images/[name][ext]"
+        }
       },
       {
         test: /\.(ttf|woff|woff2|svg|eot)$/,
         exclude: [/images/],
         type: "asset/resource",
         generator: {
-          filename: "assets/fonts/[name][ext]",
-        },
+          filename: "assets/fonts/[name][ext]"
+        }
       },
       {
         test: /\.(s[ac]ss|css)$/,
@@ -115,17 +116,17 @@ module.exports = {
           MiniCssExtractPlugin.loader,
           {
             loader: "css-loader",
-            options: { sourceMap: true },
+            options: { sourceMap: true }
           },
           {
             loader: "sass-loader",
-            options: { sourceMap: true },
-          },
-        ],
-      },
-    ],
-  },
-}
+            options: { sourceMap: true }
+          }
+        ]
+      }
+    ]
+  }
+};
 
 // module.exports = function () {
 //   if (productionMode) {
