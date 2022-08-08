@@ -1,2 +1,4 @@
-import "components/button"
-import "./ui-kit__form-elements.scss"
+import "components/button";
+import "src/main";
+
+import "./ui-kit__form-elements.scss";

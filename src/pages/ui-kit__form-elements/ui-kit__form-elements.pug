@@ -1,0 +1,21 @@
+extends ./../../templates/ui-kit__template.pug
+include ../../components/button/button.pug
+
+block variables
+  - const document_title = "Metalamp Task 2 | ui-kit__form-elements"
+  -
+    const Button = {
+      submit: {
+        tagType: "button",
+        tagText: "Войти",
+        tagName: "",
+        tagSize: "",
+        textTextColor: "gray",
+        tagVariant: ""
+      },
+    }
+
+block content
+  section.flex.buttons-container
+    +button(Button.submit)
+    +button(Button.submit)
